@@ -1,6 +1,10 @@
-# LocalComputerAutopilot (Clicko)
+﻿﻿# LocalComputerAutopilot (Clicko)
 
-A local-first Windows AI Computer Autopilot — MCP server for safe computer control, browser automation, visual grounding, scheduled workflows, and enterprise compliance.
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![MCP Tools](https://img.shields.io/badge/MCP%20tools-48-orange)](SETUP.md) [![Tests](https://img.shields.io/badge/tests-211%20passing-brightgreen)](SETUP.md#8-development) [![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)](SETUP.md#1-prerequisites)
+
+> **Full setup guide:** [SETUP.md](SETUP.md) --- installation, env variables, Claude Desktop integration, safety guide, and code review findings.
+
+A local-first Windows AI Computer Autopilot - MCP server for safe computer control, browser automation, visual grounding, scheduled workflows, and enterprise compliance.
 
 > **Phase 1**: MCP server with 8 computer-control tools, hardware fail-safe, and strict safety validation.
 > **Phase 2**: Visual verification, persistent task tracking (SQLite), Windows desktop navigation, and local browser automation (Playwright/Edge).
@@ -57,7 +61,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m local_computer_autopilot.server
 ```
 
-The server runs on **stdio transport** — it reads JSON-RPC from stdin and writes to stdout. This is how MCP clients communicate with it.
+The server runs on **stdio transport** â€” it reads JSON-RPC from stdin and writes to stdout. This is how MCP clients communicate with it.
 
 ### 7. Launch the Clicko Web UI Dashboard
 
@@ -102,7 +106,7 @@ Add this to your MCP client configuration (e.g., Claude Desktop `claude_desktop_
 }
 ```
 
-> **Note**: Adjust the Python path to your actual `.venv` location. The server communicates over stdio — the MCP client launches and manages the process.
+> **Note**: Adjust the Python path to your actual `.venv` location. The server communicates over stdio â€” the MCP client launches and manages the process.
 
 ### 10. Stop the server
 
@@ -118,7 +122,7 @@ The server exits when the MCP client disconnects (stdin closes), or press **Ctrl
 | `computer_screenshot` | Captures and returns a screenshot as PNG | None (in-memory, not saved) |
 | `computer_move_mouse` | Moves mouse cursor to (x, y) with bounded duration | Moves cursor |
 | `computer_click` | Clicks at (x, y) with allowlisted click type (`left`, `right`, `middle`, `double`) | Performs click |
-| `computer_scroll` | Scrolls vertically or horizontally (bounded ±20 clicks) | Performs scroll |
+| `computer_scroll` | Scrolls vertically or horizontally (bounded Â±20 clicks) | Performs scroll |
 | `computer_type_text` | Types text via keyboard (max 1000 chars, content unlogged) | Types keys |
 | `computer_press_key` | Presses allowlisted key or key combination (e.g. `['ctrl', 's']`) | Presses keys |
 | `computer_get_status` | Returns runtime status, fail-safe state, and enabled tools | None (read-only) |
@@ -234,7 +238,7 @@ For enterprise and one-click desktop convenience, Clicko provides batch launcher
 
 - **PyAutoGUI fail-safe**: Move mouse to any screen corner to abort (enabled by default)
 - **Coordinate validation**: All coordinates checked against screen bounds
-- **Input limits**: Text max 1000 chars, scroll max ±20 clicks, duration max 5s
+- **Input limits**: Text max 1000 chars, scroll max Â±20 clicks, duration max 5s
 - **Key allowlist**: Only documented, safe keys are accepted
 - **Concurrency lock**: Only one desktop action at a time
 - **No admin privileges**: Server refuses to describe itself as safe under admin
@@ -301,76 +305,76 @@ This non-destructive comprehensive suite verifies:
 
 ```
 src/local_computer_autopilot/
-├── __init__.py          # Package version (0.5.0)
-├── cli.py               # Unified Typer/Rich CLI ('clicko')
-├── config.py            # Safety limits, tool policy, rotating file logging
-├── server.py            # MCPServer + 48 tool definitions
-├── computer/            # Phase 1: Controller, safety checks, models
-│   ├── controller.py    # Screen info, monitors, clipboard, mouse/keyboard
-│   ├── safety.py        # Validation boundaries and action lock
-│   └── models.py
-├── vision/              # Phase 2 & 4: Visual verification & template grounding
-│   ├── verifier.py      # Diff detection, ROI wait, template locator
-│   └── models.py
-├── task/                # Phase 2: SQLite task tracking & audit
-│   ├── storage.py
-│   ├── manager.py
-│   └── models.py
-├── desktop/             # Phase 2 & 4: Windows desktop & application navigation
-│   ├── window_manager.py # Window focus, state, launch_app, close_app
-│   └── models.py
-├── browser/             # Phase 2: Local browser automation (Playwright/Edge)
-│   ├── browser_manager.py
-│   └── models.py
-├── execution/           # Phase 2: Retries, timeouts, cancellation tokens
-│   ├── retry.py
-│   └── cancellation.py
-├── agent/               # Phase 3 & 4: Autonomous workflow planning & approvals
-│   ├── models.py
-│   ├── planner.py
-│   └── runner.py        # AutonomousAgent execution loop & approval safeguards
-├── macros/              # Phase 4: Automation Macro workflow engine
-│   ├── models.py        # MacroDefinition, MacroExecutionResult
-│   ├── storage.py       # SQLite macro storage
-│   └── runner.py        # Parameter interpolation & replay runner
-├── scheduler/           # Phase 5: Production recurring workflow scheduler
-│   ├── models.py        # ScheduleDefinition, ScheduleExecutionResult
-│   ├── storage.py       # SQLite schedule storage (UPSERT, toggle, record_run)
-│   └── service.py       # Background scheduler daemon thread
-├── audit/               # Phase 5: Enterprise compliance audit exports
-│   └── exporter.py      # export_audit_json & export_audit_csv
-└── web/                 # Phase 3, 4 & 5: Starlette Web UI dashboard & REST API
-    ├── app.py           # ClickoWebApp, dashboard HTML, REST API routes
-    └── server.py        # Uvicorn server launcher
+â”œâ”€â”€ __init__.py          # Package version (0.5.0)
+â”œâ”€â”€ cli.py               # Unified Typer/Rich CLI ('clicko')
+â”œâ”€â”€ config.py            # Safety limits, tool policy, rotating file logging
+â”œâ”€â”€ server.py            # MCPServer + 48 tool definitions
+â”œâ”€â”€ computer/            # Phase 1: Controller, safety checks, models
+â”‚   â”œâ”€â”€ controller.py    # Screen info, monitors, clipboard, mouse/keyboard
+â”‚   â”œâ”€â”€ safety.py        # Validation boundaries and action lock
+â”‚   â””â”€â”€ models.py
+â”œâ”€â”€ vision/              # Phase 2 & 4: Visual verification & template grounding
+â”‚   â”œâ”€â”€ verifier.py      # Diff detection, ROI wait, template locator
+â”‚   â””â”€â”€ models.py
+â”œâ”€â”€ task/                # Phase 2: SQLite task tracking & audit
+â”‚   â”œâ”€â”€ storage.py
+â”‚   â”œâ”€â”€ manager.py
+â”‚   â””â”€â”€ models.py
+â”œâ”€â”€ desktop/             # Phase 2 & 4: Windows desktop & application navigation
+â”‚   â”œâ”€â”€ window_manager.py # Window focus, state, launch_app, close_app
+â”‚   â””â”€â”€ models.py
+â”œâ”€â”€ browser/             # Phase 2: Local browser automation (Playwright/Edge)
+â”‚   â”œâ”€â”€ browser_manager.py
+â”‚   â””â”€â”€ models.py
+â”œâ”€â”€ execution/           # Phase 2: Retries, timeouts, cancellation tokens
+â”‚   â”œâ”€â”€ retry.py
+â”‚   â””â”€â”€ cancellation.py
+â”œâ”€â”€ agent/               # Phase 3 & 4: Autonomous workflow planning & approvals
+â”‚   â”œâ”€â”€ models.py
+â”‚   â”œâ”€â”€ planner.py
+â”‚   â””â”€â”€ runner.py        # AutonomousAgent execution loop & approval safeguards
+â”œâ”€â”€ macros/              # Phase 4: Automation Macro workflow engine
+â”‚   â”œâ”€â”€ models.py        # MacroDefinition, MacroExecutionResult
+â”‚   â”œâ”€â”€ storage.py       # SQLite macro storage
+â”‚   â””â”€â”€ runner.py        # Parameter interpolation & replay runner
+â”œâ”€â”€ scheduler/           # Phase 5: Production recurring workflow scheduler
+â”‚   â”œâ”€â”€ models.py        # ScheduleDefinition, ScheduleExecutionResult
+â”‚   â”œâ”€â”€ storage.py       # SQLite schedule storage (UPSERT, toggle, record_run)
+â”‚   â””â”€â”€ service.py       # Background scheduler daemon thread
+â”œâ”€â”€ audit/               # Phase 5: Enterprise compliance audit exports
+â”‚   â””â”€â”€ exporter.py      # export_audit_json & export_audit_csv
+â””â”€â”€ web/                 # Phase 3, 4 & 5: Starlette Web UI dashboard & REST API
+    â”œâ”€â”€ app.py           # ClickoWebApp, dashboard HTML, REST API routes
+    â””â”€â”€ server.py        # Uvicorn server launcher
 tests/
-├── conftest.py                # Fixtures & mocks
-├── test_safety.py             # Safety validation tests
-├── test_controller.py         # Controller tests (mocked)
-├── test_monitors_clipboard.py # Multi-monitor and clipboard tests
-├── test_mcp_tools.py          # MCP tool registration & invocation tests (48 tools)
-├── test_vision.py             # Visual verification & template locator tests
-├── test_task_manager.py       # SQLite task tracking tests
-├── test_desktop.py            # Desktop window management & app lifecycle tests
-├── test_browser.py            # Browser automation tests
-├── test_execution.py          # Retries and cancellation token tests
-├── test_agent.py              # Autonomous agent & planner tests
-├── test_macros.py             # Macro storage, runner, parameter interpolation tests
-├── test_approval.py           # Human-in-the-loop approval safeguard tests
-├── test_web.py                # Starlette Web UI & REST API tests
-├── test_scheduler.py          # Phase 5 recurring scheduler tests
-├── test_audit.py              # Phase 5 JSON & CSV compliance export tests
-└── test_cli.py                # Phase 5 Clicko unified CLI runner tests
+â”œâ”€â”€ conftest.py                # Fixtures & mocks
+â”œâ”€â”€ test_safety.py             # Safety validation tests
+â”œâ”€â”€ test_controller.py         # Controller tests (mocked)
+â”œâ”€â”€ test_monitors_clipboard.py # Multi-monitor and clipboard tests
+â”œâ”€â”€ test_mcp_tools.py          # MCP tool registration & invocation tests (48 tools)
+â”œâ”€â”€ test_vision.py             # Visual verification & template locator tests
+â”œâ”€â”€ test_task_manager.py       # SQLite task tracking tests
+â”œâ”€â”€ test_desktop.py            # Desktop window management & app lifecycle tests
+â”œâ”€â”€ test_browser.py            # Browser automation tests
+â”œâ”€â”€ test_execution.py          # Retries and cancellation token tests
+â”œâ”€â”€ test_agent.py              # Autonomous agent & planner tests
+â”œâ”€â”€ test_macros.py             # Macro storage, runner, parameter interpolation tests
+â”œâ”€â”€ test_approval.py           # Human-in-the-loop approval safeguard tests
+â”œâ”€â”€ test_web.py                # Starlette Web UI & REST API tests
+â”œâ”€â”€ test_scheduler.py          # Phase 5 recurring scheduler tests
+â”œâ”€â”€ test_audit.py              # Phase 5 JSON & CSV compliance export tests
+â””â”€â”€ test_cli.py                # Phase 5 Clicko unified CLI runner tests
 scripts/
-├── start_clicko_web.bat       # One-click Windows Web UI launcher
-├── start_clicko_mcp.bat       # One-click Windows MCP server launcher
-├── production_smoke_test.py   # Final 8-stage production verification suite
-├── smoke_test.py              # Phase 1: Manual non-destructive smoke test
-├── phase2_smoke_test.py       # Phase 2: Non-destructive workflow verification
-├── phase3_smoke_test.py       # Phase 3: Web UI and autonomous workflow verification
-└── phase4_smoke_test.py       # Phase 4: Grounding, macros, displays & app control
-├── phase2_smoke_test.py       # Phase 2: Non-destructive workflow verification
-├── phase3_smoke_test.py       # Phase 3: Web UI and autonomous workflow verification
-└── phase4_smoke_test.py       # Phase 4: Grounding, macros, displays & app control
+â”œâ”€â”€ start_clicko_web.bat       # One-click Windows Web UI launcher
+â”œâ”€â”€ start_clicko_mcp.bat       # One-click Windows MCP server launcher
+â”œâ”€â”€ production_smoke_test.py   # Final 8-stage production verification suite
+â”œâ”€â”€ smoke_test.py              # Phase 1: Manual non-destructive smoke test
+â”œâ”€â”€ phase2_smoke_test.py       # Phase 2: Non-destructive workflow verification
+â”œâ”€â”€ phase3_smoke_test.py       # Phase 3: Web UI and autonomous workflow verification
+â””â”€â”€ phase4_smoke_test.py       # Phase 4: Grounding, macros, displays & app control
+â”œâ”€â”€ phase2_smoke_test.py       # Phase 2: Non-destructive workflow verification
+â”œâ”€â”€ phase3_smoke_test.py       # Phase 3: Web UI and autonomous workflow verification
+â””â”€â”€ phase4_smoke_test.py       # Phase 4: Grounding, macros, displays & app control
 ```
 
 ## Known Limitations
@@ -386,9 +390,9 @@ scripts/
 |---------|----------|
 | `Scripts disabled` error | Run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` |
 | `ModuleNotFoundError` | Make sure you installed with `.\.venv\Scripts\python.exe -m pip install -e ".[dev]"` |
-| Mouse moves to corner and fails | That's the PyAutoGUI fail-safe — it's working correctly! |
+| Mouse moves to corner and fails | That's the PyAutoGUI fail-safe â€” it's working correctly! |
 | `SafetyError: coordinates out of bounds` | Check your screen resolution with `computer_get_screen_info` first |
-| Server hangs on startup | The server waits for MCP protocol messages on stdin — use MCP Inspector or a client |
+| Server hangs on startup | The server waits for MCP protocol messages on stdin â€” use MCP Inspector or a client |
 
 ## License
 
